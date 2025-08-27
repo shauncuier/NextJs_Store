@@ -29,7 +29,8 @@ export default function DashboardPage() {
     if (session) {
       fetchProducts()
     }
-  }, [session])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session, fetchProducts])
 
   const fetchProducts = async () => {
     try {
