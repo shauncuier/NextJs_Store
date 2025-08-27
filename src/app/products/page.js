@@ -114,7 +114,7 @@ export default function ProductsPage() {
                   {product.name}
                 </h3>
                 
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
                   {product.description}
                 </p>
                 

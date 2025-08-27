@@ -64,18 +64,16 @@ Generate Prisma client:
 npx prisma generate
 ```
 
-### 5. Create Demo User (Optional)
-You can create a demo user by making a POST request to `/api/register`:
+### 5. Setup Database and Demo Data (Optional)
+Run the database setup script to create demo users and products:
 
 ```bash
-curl -X POST http://localhost:3000/api/register \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Demo User",
-    "email": "demo@example.com",
-    "password": "demo123"
-  }'
+npm run setup-db
 ```
+
+This will create:
+- Demo user: `demo@example.com` / `demo123`
+- Sample products for testing
 
 ### 6. Run Development Server
 ```bash

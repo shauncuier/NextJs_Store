@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../auth/[...nextauth]/route'
-import { prisma } from '@/lib/prisma'
+import { createProduct, getAllProducts, findUserById } from '@/lib/db'
 
 export async function POST(request) {
   try {
@@ -35,14 +35,12 @@ export async function POST(request) {
     }
 
     // Create product in database
-    const product = await prisma.product.create({
-      data: {
-        name,
-        description,
-        price,
-        image: image || '/next.svg', // Default image if none provided
-        userId: session.user.id,
-      },
+    const product = await createProduct({
+      name,
+      description,
+      price,
+      image: image || '/next.svg', // Default image if none provided
+      userId: session.user.id,
     })
 
     return NextResponse.json(product, { status: 201 })
@@ -59,21 +57,23 @@ export async function POST(request) {
 export async function GET() {
   try {
     // Get all products (public endpoint)
-    const products = await prisma.product.findMany({
-      include: {
-        user: {
-          select: {
-            name: true,
-            email: true,
-          },
-        },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    })
+    const products = await getAllProducts()
 
-    return NextResponse.json(products)
+    // Add user information to each product
+    const productsWithUsers = await Promise.all(
+      products.map(async (product) => {
+        const user = await findUserById(product.userId)
+        return {
+          ...product,
+          user: user ? {
+            name: user.name,
+            email: user.email,
+          } : null
+        }
+      })
+    )
+
+    return NextResponse.json(productsWithUsers)
 
   } catch (error) {
     console.error('Error fetching products:', error)

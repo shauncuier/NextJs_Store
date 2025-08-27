@@ -1,10 +1,9 @@
 'use client'
 
-import { useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useState, useEffect } from 'react'
+import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { useEffect } from 'react'
 
 export default function AddProductPage() {
   const { data: session, status } = useSession()
@@ -124,7 +123,7 @@ export default function AddProductPage() {
                 Welcome, {session.user?.name || session.user?.email}
               </div>
               <button 
-                onClick={() => router.push('/api/auth/signout')}
+                onClick={() => signOut({ callbackUrl: '/' })}
                 className="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700 transition-colors"
               >
                 Sign Out
