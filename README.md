@@ -46,7 +46,7 @@ Create a `.env.local` file in the root directory:
 
 ```env
 # Database (MongoDB)
-DATABASE_URL="mongodb+srv://username:password@cluster.mongodb.net/nextjs-auth-db?retryWrites=true&w=majority"
+DATABASE_URL=""
 # For local MongoDB, use: mongodb://localhost:27017/nextjs-auth-db
 
 # NextAuth
