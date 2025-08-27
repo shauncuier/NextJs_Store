@@ -1,4 +1,4 @@
-import clientPromise from './mongodb'
+import clientPromise from './mongodb.js'
 import { ObjectId } from 'mongodb'
 
 // Database helper functions

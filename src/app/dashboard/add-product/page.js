@@ -119,6 +119,12 @@ export default function AddProductPage() {
               >
                 Products
               </Link>
+              <Link 
+                href="/dashboard" 
+                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Dashboard
+              </Link>
               <div className="text-gray-700 dark:text-gray-300 px-3 py-2 text-sm">
                 Welcome, {session.user?.name || session.user?.email}
               </div>

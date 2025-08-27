@@ -14,7 +14,7 @@ A modern product management application built with Next.js 15, featuring authent
 
 ### Technical Features
 - **Next.js 15** with App Router
-- **MongoDB** database with Prisma ORM
+- **MongoDB** database with native MongoDB driver
 - **NextAuth.js** for authentication
 - **Tailwind CSS** for styling
 - **TypeScript-ready** architecture
@@ -58,13 +58,7 @@ GOOGLE_CLIENT_ID=""
 GOOGLE_CLIENT_SECRET=""
 ```
 
-### 4. Database Setup
-Generate Prisma client:
-```bash
-npx prisma generate
-```
-
-### 5. Setup Database and Demo Data (Optional)
+### 4. Setup Database and Demo Data (Optional)
 Run the database setup script to create demo users and products:
 
 ```bash
@@ -75,7 +69,7 @@ This will create:
 - Demo user: `demo@example.com` / `demo123`
 - Sample products for testing
 
-### 6. Run Development Server
+### 5. Run Development Server
 ```bash
 npm run dev
 ```
@@ -195,13 +189,14 @@ src/
 │   ├── dashboard/          # Protected pages
 │   ├── products/           # Product pages
 │   ├── login/             # Authentication pages
+│   ├── register/          # User registration page
 │   ├── layout.js          # Root layout
 │   ├── page.js            # Landing page
 │   └── providers.js       # React providers
 ├── lib/
-│   └── prisma.js          # Prisma client
-└── prisma/
-    └── schema.prisma      # Database schema
+│   ├── mongodb.js         # MongoDB connection
+│   └── db.js              # Database helper functions
+└── setup-db.js           # Database setup script
 ```
 
 ### Available Scripts
@@ -235,9 +230,9 @@ This project is licensed under the MIT License.
 
 - Check the Next.js documentation
 - Review NextAuth.js docs for authentication issues
-- Verify Prisma schema and database connection
+- Verify MongoDB connection and database setup
 - Ensure all environment variables are set correctly
 
 ---
 
-Built with ❤️ using Next.js 15, NextAuth.js, Prisma, and Tailwind CSS.
+Built with ❤️ using Next.js 15, NextAuth.js, MongoDB, and Tailwind CSS.

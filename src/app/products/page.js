@@ -1,53 +1,42 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
-
-// Mock product data - in a real app, this would come from your database
-const products = [
-  {
-    id: "1",
-    name: "Premium Headphones",
-    description: "High-quality wireless headphones with noise cancellation and premium sound quality. Perfect for music lovers and professionals.",
-    price: 199.99,
-    image: "/next.svg"
-  },
-  {
-    id: "2", 
-    name: "Smart Watch",
-    description: "Feature-rich smartwatch with health monitoring, GPS tracking, and long-lasting battery life.",
-    price: 299.99,
-    image: "/vercel.svg"
-  },
-  {
-    id: "3",
-    name: "Laptop Stand",
-    description: "Ergonomic aluminum laptop stand for better posture and improved workspace organization.",
-    price: 49.99,
-    image: "/window.svg"
-  },
-  {
-    id: "4",
-    name: "Wireless Mouse",
-    description: "Precision wireless mouse with ergonomic design and long battery life for productivity.",
-    price: 79.99,
-    image: "/globe.svg"
-  },
-  {
-    id: "5",
-    name: "USB-C Hub",
-    description: "Multi-port USB-C hub with HDMI, USB 3.0, and power delivery for modern laptops.",
-    price: 89.99,
-    image: "/file.svg"
-  },
-  {
-    id: "6",
-    name: "Keyboard",
-    description: "Mechanical keyboard with RGB backlighting and premium switches for gaming and typing.",
-    price: 129.99,
-    image: "/next.svg"
-  }
-]
+import { useState, useEffect } from 'react'
 
 export default function ProductsPage() {
+  const [products, setProducts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  // Fetch products from API
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const response = await fetch('/api/products')
+        if (response.ok) {
+          const data = await response.json()
+          setProducts(data)
+        } else {
+          setError('Failed to fetch products')
+        }
+      } catch (error) {
+        setError('Error loading products')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchProducts()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    )
+  }
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Navigation */}

@@ -1,7 +1,11 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
+import { useSession, signOut } from 'next-auth/react'
 
 export default function Home() {
+  const { data: session, status } = useSession()
   const featuredProducts = [
     {
       id: 1,
@@ -44,12 +48,32 @@ export default function Home() {
               >
                 Products
               </Link>
-              <Link 
-                href="/login" 
-                className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
-              >
-                Login
-              </Link>
+              {session ? (
+                <>
+                  <Link 
+                    href="/dashboard" 
+                    className="text-gray-700 dark:text-gray-300 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Dashboard
+                  </Link>
+                  <div className="text-gray-700 dark:text-gray-300 px-3 py-2 text-sm">
+                    Welcome, {session.user?.name || session.user?.email}
+                  </div>
+                  <button 
+                    onClick={() => signOut({ callbackUrl: '/' })}
+                    className="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700 transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <Link 
+                  href="/login" 
+                  className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+                >
+                  Login
+                </Link>
+              )}
             </div>
           </div>
         </div>

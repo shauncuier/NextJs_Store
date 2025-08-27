@@ -1,5 +1,9 @@
-const { findUserByEmail, createUser, createProduct } = require('./src/lib/db.js')
-const bcrypt = require('bcryptjs')
+import { config } from 'dotenv'
+import { findUserByEmail, createUser, createProduct } from './src/lib/db.js'
+import bcrypt from 'bcryptjs'
+
+// Load environment variables
+config({ path: '.env.local' })
 
 async function main() {
   try {

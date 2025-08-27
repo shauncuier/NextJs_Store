@@ -1,5 +1,15 @@
 import { MongoClient } from 'mongodb'
 
+// Try to load environment variables if not already loaded
+if (!process.env.DATABASE_URL) {
+  try {
+    const { config } = await import('dotenv')
+    config({ path: '.env.local' })
+  } catch (error) {
+    // dotenv not available, continue
+  }
+}
+
 const uri = process.env.DATABASE_URL
 const options = {}
 
